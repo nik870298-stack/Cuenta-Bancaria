@@ -92,9 +92,7 @@ public class cuentaBancaria {
         Scanner leer = new Scanner(System.in);
         double monto;
         cuentaBancaria count1 = new cuentaBancaria();
-        System.out.println("Digite su numero de cuenta: ");
         count1.setNumeroDeCuenta(leer.nextDouble());
-        System.out.println("Digite su numero de cliente(cedula): ");
         count1.setCedulaDeCliente(leer.nextDouble());
         count1.setsaldoActual(10000);
         do{
