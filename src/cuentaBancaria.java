@@ -59,25 +59,19 @@ public class cuentaBancaria {
 
     //Metodo Ingresar Dinero
     public double ingresarDinero(double monto){
-        if (monto<0){
-            System.out.println("No es posible ingresar ese monto");
-        }
+
         return this.saldoActual;
     }
 
     //Retirar dinero
     public double retirarDinero(double monto){
-        if(monto>saldoActual){
-            System.out.println("Fondos insuficientes de la cuenta");
-        }
+
         return this.saldoActual;
     }
 
     //Extraccion rapida
     public double retiroRapido(double retiro){
-        if(saldoActual<10000){
-            System.out.println("La cuenta no tiene fondos");
-        }
+
         return this.saldoActual;
     }
 
@@ -88,16 +82,12 @@ public class cuentaBancaria {
     }
 
     //Menu
-    public static void menu(){
+    public void menu(){
         Scanner leer = new Scanner(System.in);
         double monto;
-        cuentaBancaria count1 = new cuentaBancaria();
-        count1.setNumeroDeCuenta(leer.nextDouble());
-        count1.setCedulaDeCliente(leer.nextDouble());
-        count1.setsaldoActual(10000);
         do{
             System.out.println("-----------------------Cuenta Bancaria--------------------");
-            System.out.println("Datos de su cuenta: "+count1.toString());
+            System.out.println("Datos de su cuenta: "+this.toString());
             System.out.println("¿Que tramite quiere hacer?");
             System.out.println("1. Ingresar Dinero");
             System.out.println("2. Retirar Dinero");
@@ -111,36 +101,48 @@ public class cuentaBancaria {
             switch(opcion){
                 case 1:
                     System.out.println("Su saldo es: ");
-                    System.out.println(count1.ingresarDinero(count1.getsaldoActual()));
+                    System.out.println(this.ingresarDinero(this.getsaldoActual()));
                     System.out.println("Ingrese el monto que quiere ingresar: ");
                     monto = leer.nextDouble();
-                    count1.ingresarDinero(count1.saldoActual+=monto);
+                    if (monto<0){
+                        System.out.println("No es posible ingresar ese monto");
+                        break;
+                    }
+                    this.ingresarDinero(this.saldoActual+=monto);
                     System.out.println("Su saldo ahora es de:");
-                    System.out.println(count1.ingresarDinero(count1.getsaldoActual()));
+                    System.out.println(this.ingresarDinero(this.getsaldoActual()));
                     break;
                 case 2:
                     System.out.println("Su saldo es: ");
-                    System.out.println(count1.retirarDinero(count1.getsaldoActual()));
+                    System.out.println(this.retirarDinero(this.getsaldoActual()));
                     System.out.println("Ingrese el monto que quiere retirar: ");
                     monto = leer.nextDouble();
-                    count1.retirarDinero(count1.saldoActual-=monto);
+                    if(monto>saldoActual){
+                        System.out.println("Fondos insuficientes de la cuenta, usted posee: "+saldoActual);
+                        break;
+                    }
+                    this.retirarDinero(this.saldoActual-=monto);
                     System.out.println("Su saldo ahora es de:");
-                    System.out.println(count1.retirarDinero(count1.getsaldoActual()));
+                    System.out.println(this.retirarDinero(this.getsaldoActual()));
                     break;
                 case 3:
                     System.out.println("Su saldo es: ");
-                    System.out.println(count1.retiroRapido(count1.getsaldoActual()));
+                    System.out.println(this.retiroRapido(this.getsaldoActual()));
                     monto = 0.20;
-                    double retiro = count1.retiroRapido(count1.saldoActual)*monto;
+                    if(saldoActual<10000){
+                        System.out.println("La cuenta no tiene fondos");
+                        break;
+                    }
+                    double retiro = this.retiroRapido(this.saldoActual)*monto;
                     System.out.println("Usted retiro este monto: "+retiro);
-                    count1.retiroRapido(count1.saldoActual-=retiro);
-                    System.out.println(count1.retiroRapido(count1.getsaldoActual()));
+                    this.retiroRapido(this.saldoActual-=retiro);
+                    System.out.println(this.retiroRapido(this.getsaldoActual()));
                     break;
                 case 4:
-                    System.out.println(count1.consultarSaldo());
+                    System.out.println(this.consultarSaldo());
                     break;
                 case 5:
-                    System.exit(0);
+                    Main.menuPrincipal();
                     break;
             }
         }while(true);

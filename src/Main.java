@@ -7,14 +7,14 @@ public class Main {
     }
     public static void menuPrincipal(){
         Scanner leer = new Scanner(System.in);
-        List<cuentas> listaCuentas = new ArrayList();
+        List<cuentas> listaCuentas = new ArrayList<>();
         do{
             System.out.println("-----------------------Bienvenido--------------------");
             System.out.println("¿Que tramite quiere hacer?");
             System.out.println("1. Crear Cuenta");
             System.out.println("2. Mostrar Cuentas");
             System.out.println("3. Eliminar Cuentas");
-            System.out.println("4. Buscar Cuentas");
+            System.out.println("4. Buscar Cuenta y tramitar con ella");
             System.out.println("5. Salir");
             System.out.println("Escriba la opcion que desee: ");
 
@@ -42,7 +42,22 @@ public class Main {
 
                     break;
                 case 3:
+                    System.out.print("Ingrese el número de cuenta a eliminar: ");
+                    String numCuentaEliminar = leer.next();
 
+                    boolean eliminada = false;
+
+                    for (int i = 0; i < listaCuentas.size(); i++) {
+                        if (listaCuentas.get(i).getNumeroCuenta().equals(numCuentaEliminar)) {
+                            listaCuentas.remove(i);
+                            eliminada = true;
+                            System.out.println("Cuenta eliminada");
+                            break;
+                        }
+                    }
+
+                    if (!eliminada)
+                        System.out.println("La cuenta no existe.");
                     break;
                 case 4:
                     System.out.println("Ingrese su numero de cuenta: ");
@@ -52,11 +67,10 @@ public class Main {
 
                     for(cuentas N: listaCuentas){
                         if (N.getNumeroCuenta().equals(numCuenta)){
-                            numCuenta = null;
-                            cuentaBancaria.menu();
+                            cuentaBancaria cb = new cuentaBancaria(Double.parseDouble(N.getNumeroCuenta()),Double.parseDouble(N.getNumeroCedula()), N.getSaldo());
+                            cb.menu();
                         }
                         existen = true;
-                        System.out.println("La cuenta no existe");
                     }
 
                     if (!existen)
